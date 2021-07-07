@@ -1,6 +1,7 @@
-export default function Member() {
+export default function Member({ id, name, github, location }) {
+  console.log("MEMBER:", name, github, location);
   return (
-    <div className="p-2 lg:w-1/3 md:w-1/2 w-full">
+    <div className="p-2 lg:w-1/3 md:w-1/2 w-full" key={id}>
       <div className="h-full flex items-center border-gray-200 border p-4 rounded-lg">
         <img
           alt="team"
@@ -8,10 +9,9 @@ export default function Member() {
           src="https://dummyimage.com/80x80"
         />
         <div className="flex-grow">
-          <h2 className="text-gray-900 title-font font-medium">
-            Holden Caulfield
-          </h2>
-          <p className="text-gray-500">UI Designer</p>
+          <h2 className="text-gray-900 title-font font-medium">{name}</h2>
+          <p className="text-gray-500">{github}</p>
+          <p className="text-gray-500">{location}</p>
         </div>
       </div>
     </div>

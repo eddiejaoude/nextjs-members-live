@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Member from "../components/member";
+import MemberList from "../components/MemberList";
 
 export default function Home() {
   return (
@@ -85,14 +85,7 @@ export default function Home() {
                 EddieHub Members.
               </p>
             </div>
-            <div className="flex flex-wrap -m-2">
-              <Member />
-              <Member />
-              <Member />
-              <Member />
-              <Member />
-              <Member />
-            </div>
+            <MemberList />
           </div>
         </section>
       </main>
