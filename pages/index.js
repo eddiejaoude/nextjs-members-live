@@ -1,7 +1,27 @@
 import Head from "next/head";
+import { useState } from "react";
 import MemberList from "../components/MemberList";
 
 export default function Home() {
+  const [name, useName] = useState("");
+  const [github, useGithub] = useState("");
+  const [location, useLocation] = useState("");
+
+  const signup = async (event) => {
+    event.preventDefault();
+    const res = await fetch("/api/hello", {
+      body: JSON.stringify({
+        name,
+        github,
+        location,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    });
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
       <Head>
@@ -23,54 +43,62 @@ export default function Home() {
               <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
                 Sign Up
               </h2>
-              <div className="relative mb-4">
-                <label
-                  htmlFor="full-name"
-                  className="leading-7 text-sm text-gray-600"
+              <form onSubmit={signup}>
+                <div className="relative mb-4">
+                  <label
+                    htmlFor="full-name"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    id="full-name"
+                    name="full-name"
+                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    onChange={(event) => useName(event.target.value)}
+                  />
+                </div>
+                <div className="relative mb-4">
+                  <label
+                    htmlFor="username"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    GitHub Username
+                  </label>
+                  <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    onChange={(event) => useGithub(event.target.value)}
+                  />
+                </div>
+                <div className="relative mb-4">
+                  <label
+                    htmlFor="location"
+                    className="leading-7 text-sm text-gray-600"
+                  >
+                    Location
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                    onChange={(event) => useLocation(event.target.value)}
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg"
                 >
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  id="full-name"
-                  name="full-name"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-              </div>
-              <div className="relative mb-4">
-                <label
-                  htmlFor="username"
-                  className="leading-7 text-sm text-gray-600"
-                >
-                  GitHub Username
-                </label>
-                <input
-                  type="text"
-                  id="username"
-                  name="username"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-              </div>
-              <div className="relative mb-4">
-                <label
-                  htmlFor="location"
-                  className="leading-7 text-sm text-gray-600"
-                >
-                  Location
-                </label>
-                <input
-                  type="text"
-                  id="location"
-                  name="location"
-                  className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                />
-              </div>
-              <button className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Button
-              </button>
-              <p className="text-xs text-gray-500 mt-3">
-                Literally you probably haven't heard of them jean shorts.
-              </p>
+                  Button
+                </button>
+                <p className="text-xs text-gray-500 mt-3">
+                  Literally you probably haven't heard of them jean shorts.
+                </p>
+              </form>
             </div>
           </div>
         </section>
